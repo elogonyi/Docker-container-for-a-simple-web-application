@@ -23,3 +23,53 @@ bash
 Copy
 Edit
 docker build -t flask-docker-app .
+
+Build and Run the Docker Container
+Build the Docker image
+bash
+Copy
+Edit
+docker build -t flask-docker-app .
+Run the container
+bash
+Copy
+Edit
+docker run -p 5000:5000 flask-docker-app
+Access the Application
+Open your browser and go to http://localhost:5000
+
+Kubernetes Deployment (Optional)
+To deploy this application using Kubernetes, create and apply a deployment file:
+
+yaml
+Copy this
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+        - name: flask-app
+          image: flask-docker-app
+          ports:
+            - containerPort: 5000
+Apply the deployment:
+
+bash
+Copy
+
+kubectl apply -f deployment.yaml
+
+Author
+elogonyi
+
